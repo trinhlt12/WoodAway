@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate InputManager found. Destroying this instance.");
             Destroy(gameObject);
             return;
         }
@@ -33,8 +32,6 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Don't call Enable() here since we already did in InitializeInput()
-        // Only re-enable if we've disabled it previously
         if (_inputActions != null && !_inputActions.asset.enabled)
         {
             _inputActions.Enable();
