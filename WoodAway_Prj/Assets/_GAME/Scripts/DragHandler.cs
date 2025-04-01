@@ -1,4 +1,4 @@
-namespace _GAME.Scripts
+/*namespace _GAME.Scripts
 {
     using System;
     using UnityEngine;
@@ -32,7 +32,7 @@ namespace _GAME.Scripts
                 /*if(EventSystem.current != null || EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
-                }*/
+                }#1#
 
                 var touchPos = InputManager.Instance.GetTouchPos();
                 var ray = this._mainCamera.ScreenPointToRay(touchPos);
@@ -48,7 +48,7 @@ namespace _GAME.Scripts
                 }
             }
 
-            //Handle touch edn
+            //Handle touch end
             if (InputManager.Instance.GetTouchUp())
             {
                 if (_currentTouchedBlock != null)
@@ -81,4 +81,4 @@ namespace _GAME.Scripts
             block.Unhighlight();
         }
     }
-}
+}*/
