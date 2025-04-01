@@ -1,7 +1,9 @@
 namespace _GAME.Scripts
 {
-    public class BlockController
+    using UnityEngine;
+
+    public class BlockController : MonoBehaviour
     {
-        
+
     }
 }

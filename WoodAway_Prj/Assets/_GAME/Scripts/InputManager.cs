@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,7 @@ public class InputManager : MonoBehaviour
     private Vector2 _swipeStart;
     private Vector2 _currentTouchPosition;
     private bool _isTouching = false;
+    private bool _wasTouchingLastFrame = false;
 
     private const float SwipeThreshold = 50f; // pixels
 
@@ -36,6 +38,11 @@ public class InputManager : MonoBehaviour
         {
             _inputActions.Enable();
         }
+    }
+
+    private void Update()
+    {
+        _wasTouchingLastFrame = _isTouching;
     }
 
     private void OnDisable()
@@ -154,6 +161,21 @@ public class InputManager : MonoBehaviour
         {
             ResetSwipeDirection();
         }
+    }
+
+    public bool GetTouchDown()
+    {
+        return _isTouching && !_wasTouchingLastFrame;
+    }
+
+    public bool GetTouchUp()
+    {
+        return !_isTouching && _wasTouchingLastFrame;
+    }
+
+    public Vector2 GetTouchPos()
+    {
+        return _currentTouchPosition;
     }
 }
 
