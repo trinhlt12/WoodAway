@@ -13,7 +13,8 @@ public class InputManager : MonoBehaviour
     private SwipeDirection     _currentSwipeDirection;
 
     private Vector2 _swipeStart;
-    private Vector2 _swipeEnd;
+    private Vector2 _currentTouchPosition;
+    private bool _isTouching = false;
 
     private const float SwipeThreshold = 50f; // pixels
 
@@ -30,38 +31,109 @@ public class InputManager : MonoBehaviour
         InitializeInput();
     }
 
+    private void OnEnable()
+    {
+        // Don't call Enable() here since we already did in InitializeInput()
+        // Only re-enable if we've disabled it previously
+        if (_inputActions != null && !_inputActions.asset.enabled)
+        {
+            _inputActions.Enable();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_inputActions != null)
+        {
+            _inputActions.Disable();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_inputActions != null)
+        {
+            UnsubscribeFromEvents();
+            _inputActions.Dispose();
+            _inputActions = null;
+        }
+    }
+
     private void InitializeInput()
     {
         _inputActions = new PlayerInputActions();
-        _inputActions.Enable();
-
         SetupTouchActions();
+        _inputActions.Enable();
     }
 
     private void SetupTouchActions()
     {
-        _inputActions.Player.TouchPress.started  += HandleSwipeStart;
-        _inputActions.Player.Touch.performed     += ctx => _swipeEnd = ctx.ReadValue<Vector2>();
-        _inputActions.Player.TouchPress.canceled += HandleSwipeEnd;
+        _inputActions.Player.TouchPress.started  += HandleTouchStart;
+        _inputActions.Player.TouchPress.canceled += HandleTouchEnd;
+
+        // For mouse/touch position tracking
+        _inputActions.Player.Touch.performed     += HandleTouchPositionChange;
     }
 
-    private void HandleSwipeStart(InputAction.CallbackContext ctx)
+    private void UnsubscribeFromEvents()
     {
-        _swipeStart = _inputActions.Player.Touch.ReadValue<Vector2>();
-        _swipeEnd   = _swipeStart;
+        if (_inputActions == null) return;
+
+        _inputActions.Player.TouchPress.started  -= HandleTouchStart;
+        _inputActions.Player.TouchPress.canceled -= HandleTouchEnd;
+        _inputActions.Player.Touch.performed     -= HandleTouchPositionChange;
     }
 
-    private void HandleSwipeEnd(InputAction.CallbackContext ctx)
+    private void HandleTouchStart(InputAction.CallbackContext ctx)
     {
-        Vector2 swipeDelta = _swipeEnd - _swipeStart;
+        if (!CanAcceptInput) return;
+
+        // Get the current touch position
+        _currentTouchPosition = GetTouchPosition();
+        _swipeStart = _currentTouchPosition;
+        _isTouching = true;
+
+        // Reset swipe direction when starting a new touch
+        CurrentSwipeDirection = SwipeDirection.None;
+    }
+
+    private void HandleTouchPositionChange(InputAction.CallbackContext ctx)
+    {
+        if (!_isTouching || !CanAcceptInput) return;
+
+        _currentTouchPosition = GetTouchPosition();
+    }
+
+    private void HandleTouchEnd(InputAction.CallbackContext ctx)
+    {
+        if (!_isTouching || !CanAcceptInput) return;
+
+        // Final swipe calculation on touch end
+        Vector2 swipeDelta = _currentTouchPosition - _swipeStart;
         DetectSwipeDirection(swipeDelta);
+
+        _isTouching = false;
+    }
+
+    private Vector2 GetTouchPosition()
+    {
+        // For testing in editor with mouse
+        if (Touchscreen.current == null || !Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            // Fallback to mouse position when testing in editor
+            if (Mouse.current != null)
+                return Mouse.current.position.ReadValue();
+            return Vector2.zero;
+        }
+
+        return Touchscreen.current.primaryTouch.position.ReadValue();
     }
 
     private void DetectSwipeDirection(Vector2 delta)
     {
         if (delta.magnitude < SwipeThreshold)
         {
-            CurrentSwipeDirection = SwipeDirection.None;
+            // Keep the previous direction
             return;
         }
 
@@ -70,12 +142,21 @@ public class InputManager : MonoBehaviour
             ? (delta.x > 0 ? SwipeDirection.Right : SwipeDirection.Left)
             : (delta.y > 0 ? SwipeDirection.Forward : SwipeDirection.Backward);
 
-        Debug.Log($"Swipe detected: {CurrentSwipeDirection}");
+        Debug.Log($"Swipe detected: {CurrentSwipeDirection}, Delta: {delta}");
     }
 
     public void ResetSwipeDirection()
     {
         CurrentSwipeDirection = SwipeDirection.None;
+    }
+
+    public void SetInputActive(bool active)
+    {
+        CanAcceptInput = active;
+        if (!active)
+        {
+            ResetSwipeDirection();
+        }
     }
 }
 
