@@ -14,6 +14,11 @@ public class Block : MonoBehaviour
         this.OnInit();
     }
 
+    private void Start()
+    {
+        GridManager.Instance.MarkCellsOccupied(this.transform.position, this.CellOffsets);
+    }
+
     private void OnInit()
     {
         this._outline.enabled = false;

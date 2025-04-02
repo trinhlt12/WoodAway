@@ -7,11 +7,12 @@ namespace _GAME.Scripts
     public class BlockDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
     {
         #region FIELD_DECLARATIONS
-        private Block  _block;
-        private Camera _mainCamera;
-        private Plane  _groundPlane;
+        private Block   _block;
+        private Camera  _mainCamera;
+        private Plane   _groundPlane;
         private Vector3 _dragOffset;
-
+        private Vector3 _originalPosition;
+        private Vector3 _lastValidPosition;
         #endregion
 
         #region UNITY_CALLBACKS
@@ -34,7 +35,12 @@ namespace _GAME.Scripts
             if (this._groundPlane.Raycast(ray, out var distance))
             {
                 var worldPoint = ray.GetPoint(distance);
-                this._dragOffset = this.transform.position - worldPoint;
+                this._dragOffset   = this.transform.position - worldPoint;
+                _originalPosition  = this.transform.position;
+                _lastValidPosition = _originalPosition;
+
+                GridManager.Instance.UnmarkCellsOccupied(this.transform.position, this._block.CellOffsets);
+
             }
             this._block.Highlight();
         }
@@ -101,6 +107,8 @@ namespace _GAME.Scripts
                 }
 
                 var newPosition = new Vector3(worldPoint.x, this.transform.position.y, worldPoint.z);
+
+
                 this.transform.position = newPosition;
             }
         }
@@ -113,11 +121,52 @@ namespace _GAME.Scripts
             if (closestCell != null)
             {
                 var snapPosition = closestCell.position;
-                snapPosition.y = this.transform.position.y;
-                this.transform.position = snapPosition;
+                snapPosition.y          = this.transform.position.y;
+                if (CanPlaceAtPosition(snapPosition))
+                {
+                    this.transform.position = snapPosition;
+                    GridManager.Instance.MarkCellsOccupied(snapPosition, this._block.CellOffsets);
+                }
+                else
+                {
+                    this.transform.position = _originalPosition;
+                    GridManager.Instance.MarkCellsOccupied(_originalPosition, this._block.CellOffsets);
+                }
 
-                GridManager.Instance.MarkCellsOccupied(snapPosition, this._block.CellOffsets);
             }
+        }
+
+        private bool CanPlaceAtPosition(Vector3 position)
+        {
+            var blockOffsets = this._block.CellOffsets;
+
+            foreach (var offset in blockOffsets)
+            {
+                var cellWorldPos = position + new Vector3(offset.x, 0, offset.y);
+                var closestCell  = GridManager.Instance.GetClosestCell(cellWorldPos);
+
+                if (closestCell != null)
+                {
+                    var foundCell = false;
+                    for (var row = 0; row < 5; row++)
+                    {
+                        for (var col = 0; col < 4; col++)
+                        {
+                            var cell = GridManager.Instance.GetCell(row, col);
+                            if (cell.cellTransform != closestCell) continue;
+                            if (cell.isOccupied)
+                            {
+                                return false;
+                            }
+                            foundCell = true;
+                            break;
+                        }
+                        if (foundCell) break;
+                    }
+                }
+            }
+
+            return true;
         }
 
     }

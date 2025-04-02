@@ -40,7 +40,7 @@ public class GridManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        if (this.gridRoot == null) return;
+        if (this.gridRoot == null || this._gridCells == null) return;
 
         #if UNITY_EDITOR
 
@@ -49,17 +49,28 @@ public class GridManager : MonoBehaviour
         {
             for (var col = 0; col < columns; col++)
             {
-                if(this.gridRoot.childCount <= index) return;
+                if (this.gridRoot.childCount <= index) return;
                 var cell = this.gridRoot.GetChild(index);
-                var position = cell.position;
+                var pos  = cell.position;
 
-                Gizmos.DrawWireCube(position, new Vector3(1,0.01f, 1f));
+                if (_gridCells[row, col] != null)
+                {
+                    if (_gridCells[row, col].isOccupied)
+                        Gizmos.color = Color.red;
+                    else
+                        Gizmos.color = Color.green;
+                }
+
+                Gizmos.DrawCube(pos, new Vector3(0.9f, 0.05f, 0.9f));
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireCube(pos, new Vector3(1, 0.01f, 1));
                 index++;
             }
         }
 
         #endif
     }
+
 
     #endregion
 
@@ -162,26 +173,26 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public bool CanPlaceBlockAtPosition(Vector3 pivotWorldPos, Vector2Int[] offsets)
+    public void UnmarkCellsOccupied(Vector3 pivotWorldPos, Vector2Int[] offsets)
     {
         foreach (var offset in offsets)
         {
             var cellPos = pivotWorldPos + new Vector3(offset.x, 0, offset.y);
 
             var closest = GetClosestCell(cellPos);
-            if (closest == null) return false;
-
-            foreach (var cell in _gridCells)
+            if (closest != null)
             {
-                if (cell.cellTransform != closest) continue;
-                if (cell.isOccupied) return false;
-                break;
+                foreach (var cell in _gridCells)
+                {
+                    if (cell.cellTransform == closest)
+                    {
+                        cell.isOccupied = false;
+                        break;
+                    }
+                }
             }
         }
-        return true;
     }
-
-
     private void Start()
     {
         Debug.Log($"Grid bounds: {CalculateGridBounds()}");
