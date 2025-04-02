@@ -10,6 +10,7 @@ namespace _GAME.Scripts
         private Block  _block;
         private Camera _mainCamera;
         private Plane  _groundPlane;
+        private Vector3 _dragOffset;
 
         #endregion
 
@@ -29,6 +30,12 @@ namespace _GAME.Scripts
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            var ray = this._mainCamera.ScreenPointToRay(eventData.position);
+            if (this._groundPlane.Raycast(ray, out var distance))
+            {
+                var worldPoint = ray.GetPoint(distance);
+                this._dragOffset = this.transform.position - worldPoint;
+            }
             this._block.Highlight();
         }
         public void OnPointerUp(PointerEventData   eventData)
@@ -52,6 +59,7 @@ namespace _GAME.Scripts
             if (this._groundPlane.Raycast(ray, out var distance))
             {
                 var worldPoint = ray.GetPoint(distance);
+                worldPoint += this._dragOffset;
 
                 var bounds = GridManager.Instance.CalculateGridBounds();
                 var halfSize = this.transform.localScale.x / 2;
