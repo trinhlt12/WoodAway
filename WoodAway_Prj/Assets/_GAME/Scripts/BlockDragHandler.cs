@@ -25,7 +25,7 @@ namespace _GAME.Scripts
         }
         public void OnEndDrag(PointerEventData eventData)
         {
-            this._block.Unhighlight();
+            HandleOnEndDrag(eventData);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -102,6 +102,19 @@ namespace _GAME.Scripts
 
                 var newPosition = new Vector3(worldPoint.x, this.transform.position.y, worldPoint.z);
                 this.transform.position = newPosition;
+            }
+        }
+
+        private void HandleOnEndDrag(PointerEventData eventData)
+        {
+            this._block.Unhighlight();
+
+            var closestCell = GridManager.Instance.GetClosestCell(this.transform.position);
+            if (closestCell != null)
+            {
+                var snapPosition = closestCell.position;
+                snapPosition.y = this.transform.position.y;
+                this.transform.position = snapPosition;
             }
         }
 

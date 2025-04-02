@@ -5,8 +5,8 @@ using _GAME.Scripts;
 [CustomEditor(typeof(BlockShapeData))]
 public class BlockShapeDataEditor : Editor
 {
-    private const int gridSize = 5;
-    private const int cellSize = 20;
+    private const int _gridSize = 5;
+    private const int _cellSize = 20;
 
     public override void OnInspectorGUI()
     {
@@ -15,30 +15,30 @@ public class BlockShapeDataEditor : Editor
         GUILayout.Space(10);
         GUILayout.Label("🧩 Shape Preview", EditorStyles.boldLabel);
 
-        BlockShapeData shapeData = (BlockShapeData)target;
-        Vector2Int[]   offsets   = shapeData.CellOffsets;
+        var shapeData = (BlockShapeData)target;
+        var   offsets   = shapeData.CellOffsets;
 
         DrawGrid(offsets);
     }
 
-    private void DrawGrid(Vector2Int[] offsets)
+    private static void DrawGrid(Vector2Int[] offsets)
     {
-        Rect rect = GUILayoutUtility.GetRect(gridSize * cellSize, gridSize * cellSize);
+        var rect = GUILayoutUtility.GetRect(_gridSize * _cellSize, _gridSize * _cellSize);
         Handles.BeginGUI();
 
-        Vector2 center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+        var center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
 
-        for (int y = -gridSize / 2; y <= gridSize / 2; y++)
+        for (var y = -_gridSize / 2; y <= _gridSize / 2; y++)
         {
-            for (int x = -gridSize / 2; x <= gridSize / 2; x++)
+            for (var x = -_gridSize / 2; x <= _gridSize / 2; x++)
             {
-                Rect cellRect = new Rect(
-                    center.x + x * cellSize,
-                    center.y - y * cellSize,
-                    cellSize, cellSize
+                var cellRect = new Rect(
+                    center.x + x * _cellSize,
+                    center.y - y * _cellSize,
+                    _cellSize, _cellSize
                 );
 
-                Color color = Color.gray;
+                var color = Color.gray;
 
                 if (x == 0 && y == 0)
                     color                                                               = Color.green;             // Pivot

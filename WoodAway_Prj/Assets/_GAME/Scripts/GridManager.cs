@@ -82,6 +82,23 @@ public class GridManager : MonoBehaviour
         return _gridCells[row, col];
     }
 
+    public Transform GetClosestCell(Vector3 worldPosition)
+    {
+        Transform closest = null;
+        var minDistance = float.MaxValue;
+
+        foreach (var cell in this._gridCells)
+        {
+            var distance = Vector3.Distance(worldPosition, cell.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = cell;
+            }
+        }
+        return closest;
+    }
+
     public Bounds CalculateGridBounds()
     {
         if (_gridCells.Length == 0)
