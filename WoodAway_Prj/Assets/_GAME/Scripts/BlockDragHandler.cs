@@ -20,6 +20,22 @@ namespace _GAME.Scripts
         {
             this.OnInit();
         }
+
+        private void Update()
+        {
+            if (!this._targetPosition.HasValue) return;
+            var speed = 10f;
+            this.transform.position = Vector3.MoveTowards(
+                this.transform.position,
+                this._targetPosition.Value,
+                speed * Time.deltaTime
+            );
+
+            if (!(Vector3.Distance(this.transform.position, this._targetPosition.Value) < 0.005f/2)) return;
+            this.transform.position = this._targetPosition.Value;
+            this._targetPosition    = null;
+        }
+
         public void OnDrag(PointerEventData    eventData)
         {
             HandleOnDrag(eventData);
@@ -56,6 +72,8 @@ namespace _GAME.Scripts
             this._mainCamera = Camera.main;
             this._groundPlane = new Plane(Vector3.up, Vector3.zero);
         }
+
+        private Vector3? _targetPosition = null;
 
         private void HandleOnDrag(PointerEventData eventData)
         {
@@ -106,10 +124,24 @@ namespace _GAME.Scripts
                     worldPoint.z -= maxOffset.z - bounds.max.z + halfSize;
                 }
 
-                var newPosition = new Vector3(worldPoint.x, this.transform.position.y, worldPoint.z);
+                Vector2Int startCoord  = GridManager.Instance.GetGridCoordFromWorld(this.transform.position);
+                Vector2Int targetCoord = GridManager.Instance.GetGridCoordFromWorld(worldPoint);
 
+                var path = GridManager.Instance.FindPath(startCoord, targetCoord, _block.CellOffsets);
 
-                this.transform.position = newPosition;
+                if (path.Count > 1)
+                {
+                    var nextCoord    = path[1];
+                    var nextWorldPos = GridManager.Instance.GetWorldFromGridCoord(nextCoord);
+
+                    _targetPosition = new Vector3(
+                        nextWorldPos.x,
+                        this.transform.position.y,
+                        nextWorldPos.z
+                    );
+
+                    _lastValidPosition = _targetPosition.Value;
+                }
             }
         }
 
@@ -129,7 +161,9 @@ namespace _GAME.Scripts
                 }
                 else
                 {
-                    this.transform.position = _originalPosition;
+                    //get closest cell to the invalid position:
+                    var lastValidCell = GridManager.Instance.GetClosestCell(_lastValidPosition);
+                    this.transform.position = lastValidCell.position;
                     GridManager.Instance.MarkCellsOccupied(_originalPosition, this._block.CellOffsets);
                 }
 

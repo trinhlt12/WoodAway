@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridCell
 {
     public Transform cellTransform;
-    public bool isOccupied;
+    public bool      isOccupied;
 }
+
 public class GridManager : MonoBehaviour
 {
     #region FIELD_DECLARATIONS
@@ -16,7 +18,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private const int       columns = 4;
     [SerializeField] private const int       rows    = 5;
 
-    public static GridManager Instance { get; private set; }
+    public static    GridManager Instance { get; private set; }
     private readonly GridCell[,] _gridCells = new GridCell[rows, columns];
 
     #endregion
@@ -71,7 +73,6 @@ public class GridManager : MonoBehaviour
         #endif
     }
 
-
     #endregion
 
     private void OnInit()
@@ -103,8 +104,8 @@ public class GridManager : MonoBehaviour
 
     public Transform GetClosestCell(Vector3 worldPosition)
     {
-        Transform closest = null;
-        var minDistance = float.MaxValue;
+        Transform closest     = null;
+        var       minDistance = float.MaxValue;
 
         foreach (var cell in this._gridCells)
         {
@@ -112,7 +113,7 @@ public class GridManager : MonoBehaviour
             if (distance < minDistance)
             {
                 minDistance = distance;
-                closest = cell.cellTransform;
+                closest     = cell.cellTransform;
             }
         }
         return closest;
@@ -193,6 +194,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
     private void Start()
     {
         Debug.Log($"Grid bounds: {CalculateGridBounds()}");
@@ -208,5 +210,141 @@ public class GridManager : MonoBehaviour
     public float GetGridLength()
     {
         return CalculateGridBounds().size.z;
+    }
+
+    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end, Vector2Int[] draggedBlockOffsets)
+    {
+        var openList   = new List<Node>();
+        var closedSet  = new HashSet<Vector2Int>();
+        var gridWidth  = 4; // columns
+        var gridHeight = 5; // rows
+
+        Node startNode = new Node(start, null, 0, Heuristic(start, end));
+        openList.Add(startNode);
+
+        while (openList.Count > 0)
+        {
+            openList.Sort((a, b) => a.fCost.CompareTo(b.fCost));
+            Node currentNode = openList[0];
+            openList.RemoveAt(0);
+
+            if (currentNode.position == end) return ReconstructPath(currentNode);
+
+            closedSet.Add(currentNode.position);
+
+            foreach (var direction in Directions)
+            {
+                Vector2Int neighborPos = currentNode.position + direction;
+
+                if (neighborPos.x < 0 || neighborPos.x >= gridWidth || neighborPos.y < 0 || neighborPos.y >= gridHeight) continue;
+
+                if (closedSet.Contains(neighborPos)) continue;
+
+                var cell = GetCell(neighborPos.y, neighborPos.x);
+
+                if (!IsBlockFitAtGridPosition(neighborPos, draggedBlockOffsets)) continue;
+
+                int  tentativeG   = currentNode.gCost + 1;
+                Node neighborNode = openList.FirstOrDefault(n => n.position == neighborPos);
+
+                if (neighborNode == null)
+                {
+                    neighborNode = new Node(neighborPos, currentNode, tentativeG, Heuristic(neighborPos, end));
+                    openList.Add(neighborNode);
+                }
+                else if (tentativeG < neighborNode.gCost)
+                {
+                    neighborNode.parent = currentNode;
+                    neighborNode.gCost  = tentativeG;
+                    neighborNode.fCost  = neighborNode.gCost + neighborNode.hCost;
+                }
+            }
+        }
+
+        return new List<Vector2Int>();
+    }
+
+    private static readonly Vector2Int[] Directions = new Vector2Int[]
+    {
+        Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
+    };
+
+    private int Heuristic(Vector2Int a, Vector2Int b)
+    {
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+    }
+
+    private List<Vector2Int> ReconstructPath(Node endNode)
+    {
+        var  path    = new List<Vector2Int>();
+        Node current = endNode;
+
+        while (current != null)
+        {
+            path.Add(current.position);
+            current = current.parent;
+        }
+
+        path.Reverse();
+        return path;
+    }
+
+    private class Node
+    {
+        public readonly Vector2Int position;
+        public          Node       parent;
+        public          int        gCost;
+        public readonly int        hCost;
+        public          int        fCost { get => gCost + hCost; set => fCost = value; }
+
+        public Node(Vector2Int position, Node parent, int gCost, int hCost)
+        {
+            this.position = position;
+            this.parent   = parent;
+            this.gCost    = gCost;
+            this.hCost    = hCost;
+        }
+    }
+
+    public bool IsBlockFitAtGridPosition(Vector2Int pivotCoord, Vector2Int[] cellOffsets)
+    {
+        foreach (var offset in cellOffsets)
+        {
+            var coord = pivotCoord + offset;
+
+            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) return false;
+
+            if (_gridCells[coord.y, coord.x].isOccupied) return false;
+        }
+
+        return true;
+    }
+
+    public Vector2Int GetGridCoordFromWorld(Vector3 worldPos)
+    {
+        float      minDistance  = float.MaxValue;
+        Vector2Int closestCoord = new Vector2Int(-1, -1);
+
+        for (int row = 0; row < 5; row++)
+        {
+            for (int col = 0; col < 4; col++)
+            {
+                var   cell = _gridCells[row, col];
+                float dist = Vector3.Distance(worldPos, cell.cellTransform.position);
+                if (dist < minDistance)
+                {
+                    minDistance  = dist;
+                    closestCoord = new Vector2Int(col, row);
+                }
+            }
+        }
+
+        return closestCoord;
+    }
+
+    public Vector3 GetWorldFromGridCoord(Vector2Int coord)
+    {
+        if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) return Vector3.zero;
+        return _gridCells[coord.y, coord.x].cellTransform.position;
     }
 }
