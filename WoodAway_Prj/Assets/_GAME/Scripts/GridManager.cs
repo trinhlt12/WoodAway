@@ -5,16 +5,71 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private Transform gridRoot;
+    #region FIELD_DECLARATIONS
 
-    private readonly Transform[,] _gridCells = new Transform[5, 4];
+    [SerializeField] private       Transform gridRoot;
+    [SerializeField] private const int       columns = 4;
+    [SerializeField] private const int       rows    = 5;
+
+    public static GridManager Instance { get; private set; }
+    private readonly Transform[,] _gridCells = new Transform[rows, columns];
+
+    #endregion
+
+    #region UNITY_CALLBACKS
 
     private void Awake()
     {
-        var index = 0;
-        for(var row = 0; row < 5; row++)
+        if (Instance == null)
         {
-            for(var col = 0; col < 4; col++)
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
+        this.OnInit();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        if (this.gridRoot == null) return;
+
+        #if UNITY_EDITOR
+
+        var index = 0;
+        for (var row = 0; row < rows; row++)
+        {
+            for (var col = 0; col < columns; col++)
+            {
+                if(this.gridRoot.childCount <= index) return;
+                var cell = this.gridRoot.GetChild(index);
+                var position = cell.position;
+
+                Gizmos.DrawWireCube(position, new Vector3(1,0.01f, 1f));
+                index++;
+            }
+        }
+
+        #endif
+    }
+
+    #endregion
+
+    private void OnInit()
+    {
+
+        InitGrid();
+    }
+
+    private void InitGrid()
+    {
+        var index = 0;
+        for (var row = 0; row < rows; row++)
+        {
+            for (var col = 0; col < columns; col++)
             {
                 _gridCells[row, col] = gridRoot.GetChild(index);
                 index++;
@@ -29,7 +84,7 @@ public class GridManager : MonoBehaviour
 
     public Bounds CalculateGridBounds()
     {
-        if(_gridCells.Length == 0)
+        if (_gridCells.Length == 0)
         {
             return new Bounds(gridRoot.position, Vector3.zero);
         }
@@ -42,11 +97,11 @@ public class GridManager : MonoBehaviour
         var halfCellSizeX = cellSizeX / 2f;
         var halfCellSizeZ = cellSizeZ / 2f;
 
-        var min    = this._gridCells[0, 0].position;
-        var max    = this._gridCells[0, 0].position;
-        for (var row = 0; row < 5; row++)
+        var min = this._gridCells[0, 0].position;
+        var max = this._gridCells[0, 0].position;
+        for (var row = 0; row < rows; row++)
         {
-            for (var col = 0; col < 4; col++)
+            for (var col = 0; col < columns; col++)
             {
                 var position = this._gridCells[row, col].position;
                 min = Vector3.Min(min, position);
