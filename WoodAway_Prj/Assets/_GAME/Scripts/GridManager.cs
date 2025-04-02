@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GridCell
+{
+    public Transform cellTransform;
+    public bool isOccupied;
+}
 public class GridManager : MonoBehaviour
 {
     #region FIELD_DECLARATIONS
@@ -12,7 +17,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private const int       rows    = 5;
 
     public static GridManager Instance { get; private set; }
-    private readonly Transform[,] _gridCells = new Transform[rows, columns];
+    private readonly GridCell[,] _gridCells = new GridCell[rows, columns];
 
     #endregion
 
@@ -60,7 +65,6 @@ public class GridManager : MonoBehaviour
 
     private void OnInit()
     {
-
         InitGrid();
     }
 
@@ -71,13 +75,17 @@ public class GridManager : MonoBehaviour
         {
             for (var col = 0; col < columns; col++)
             {
-                _gridCells[row, col] = gridRoot.GetChild(index);
+                this._gridCells[row, col] = new GridCell
+                {
+                    cellTransform = this.gridRoot.GetChild(index),
+                    isOccupied    = false
+                };
                 index++;
             }
         }
     }
 
-    public Transform GetCell(int row, int col)
+    public GridCell GetCell(int row, int col)
     {
         return _gridCells[row, col];
     }
@@ -89,11 +97,11 @@ public class GridManager : MonoBehaviour
 
         foreach (var cell in this._gridCells)
         {
-            var distance = Vector3.Distance(worldPosition, cell.position);
+            var distance = Vector3.Distance(worldPosition, cell.cellTransform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                closest = cell;
+                closest = cell.cellTransform;
             }
         }
         return closest;
@@ -114,13 +122,13 @@ public class GridManager : MonoBehaviour
         var halfCellSizeX = cellSizeX / 2f;
         var halfCellSizeZ = cellSizeZ / 2f;
 
-        var min = this._gridCells[0, 0].position;
-        var max = this._gridCells[0, 0].position;
+        var min = this._gridCells[0, 0].cellTransform.position;
+        var max = this._gridCells[0, 0].cellTransform.position;
         for (var row = 0; row < rows; row++)
         {
             for (var col = 0; col < columns; col++)
             {
-                var position = this._gridCells[row, col].position;
+                var position = this._gridCells[row, col].cellTransform.position;
                 min = Vector3.Min(min, position);
                 max = Vector3.Max(max, position);
             }
@@ -132,6 +140,47 @@ public class GridManager : MonoBehaviour
         bounds.SetMinMax(min, max);
         return bounds;
     }
+
+    public void MarkCellsOccupied(Vector3 pivotWorldPos, Vector2Int[] offsets)
+    {
+        foreach (var offset in offsets)
+        {
+            var cellPos = pivotWorldPos + new Vector3(offset.x, 0, offset.y);
+
+            var closest = GetClosestCell(cellPos);
+            if (closest != null)
+            {
+                foreach (var cell in _gridCells)
+                {
+                    if (cell.cellTransform == closest)
+                    {
+                        cell.isOccupied = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public bool CanPlaceBlockAtPosition(Vector3 pivotWorldPos, Vector2Int[] offsets)
+    {
+        foreach (var offset in offsets)
+        {
+            var cellPos = pivotWorldPos + new Vector3(offset.x, 0, offset.y);
+
+            var closest = GetClosestCell(cellPos);
+            if (closest == null) return false;
+
+            foreach (var cell in _gridCells)
+            {
+                if (cell.cellTransform != closest) continue;
+                if (cell.isOccupied) return false;
+                break;
+            }
+        }
+        return true;
+    }
+
 
     private void Start()
     {

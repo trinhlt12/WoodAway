@@ -115,6 +115,8 @@ namespace _GAME.Scripts
                 var snapPosition = closestCell.position;
                 snapPosition.y = this.transform.position.y;
                 this.transform.position = snapPosition;
+
+                GridManager.Instance.MarkCellsOccupied(snapPosition, this._block.CellOffsets);
             }
         }
 
