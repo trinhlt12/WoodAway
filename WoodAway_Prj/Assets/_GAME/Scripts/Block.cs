@@ -2,11 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Block : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IEndDragHandler
+public class Block : MonoBehaviour
 {
     [SerializeField] private Outline             _outline;
-    private                  IPointerDownHandler pointerDownHandlerImplementation;
-
     private void Awake()
     {
         this.OnInit();
@@ -25,25 +23,5 @@ public class Block : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerU
     public void Unhighlight()
     {
         this._outline.enabled = false;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        this.Highlight();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        this.Highlight();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        this.Unhighlight();
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        this.Unhighlight();
     }
 }

@@ -433,12 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1431914853d4d46b8196a7dadc9e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CanAcceptInput>k__BackingField: 1
-  _currentSwipeDirection: 0
-  _swipeStart: {x: 0, y: 0}
-  _currentTouchPosition: {x: 0, y: 0}
-  _isTouching: 0
-  _wasTouchingLastFrame: 0
 --- !u!4 &164715485
 Transform:
   m_ObjectHideFlags: 0
@@ -1131,13 +1125,13 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.253
     m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NormalBias: 0.7
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -1287,8 +1281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c944a54db1409db444b7cf4f269c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 0}
-  _currentTouchedBlock: {fileID: 0}
 --- !u!4 &838623328
 Transform:
   m_ObjectHideFlags: 0

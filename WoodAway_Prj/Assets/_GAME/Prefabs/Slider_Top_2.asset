@@ -1,0 +1,436 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!43 &4300000
+Mesh:
+  serializedVersion: 10
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Slider_Top_2
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 90
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 32
+    localAABB:
+      m_Center: {x: -0.009484641, y: 2.9802322E-08, z: 0.6000811}
+      m_Extent: {x: 0.0038369622, y: 0.5159811, z: 0.80908525}
+  m_Shapes:
+    vertices:
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125166}
+      normal: {x: 0, y: -1.0728836E-06, z: 0.000860807}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 0
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125166}
+      normal: {x: 0, y: 0, z: 1.3271347E-08}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 1
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0020023584, z: 0.058205765}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 2
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0004892349, z: 0.026453286}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 3
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125171}
+      normal: {x: 0, y: -0.00040614605, z: -0.0015619695}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 4
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125171}
+      normal: {x: 0, y: -0.024421453, z: -0.12647673}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 5
+    - vertex: {x: 0, y: 2.0861626E-07, z: 1.9125171}
+      normal: {x: 0, y: 0.00030004978, z: 0.0005413592}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 6
+    - vertex: {x: 0, y: 2.0861626E-07, z: 1.9125171}
+      normal: {x: -1.2169032E-06, y: 0.37157577, z: 0.3796617}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 7
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0004633665, z: 0.00048315525}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 8
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0004633665, z: 0.00048321486}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 9
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.00046533346, z: 0.00028079748}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 10
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.00046533346, z: 0.00028079748}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 11
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0023260415, z: 0.0006623268}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 12
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: 0.0023260415, z: 0.0006623268}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 13
+    - vertex: {x: 0, y: 1.6391277E-07, z: 1.912517}
+      normal: {x: 0, y: -0.05227037, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 14
+    - vertex: {x: 0, y: 1.6391277E-07, z: 1.912517}
+      normal: {x: 0, y: -0.05227037, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 15
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: 0.052270446, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 16
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: 0.052270446, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 17
+    - vertex: {x: 0, y: 1.7881393E-07, z: 1.912517}
+      normal: {x: 0, y: -0.0023260713, z: 0.000662446}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 18
+    - vertex: {x: 0, y: 1.7881393E-07, z: 1.912517}
+      normal: {x: 0, y: -0.0023260713, z: 0.000662446}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 19
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.00046539307, z: 0.0002808571}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 20
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.00046539307, z: 0.0002808571}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 21
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.0004633665, z: 0.00048315525}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 22
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.0004633069, z: 0.00048297644}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 23
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: -0.00029969215, z: 0.00054070354}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 24
+    - vertex: {x: 0, y: 1.4901161E-07, z: 1.912517}
+      normal: {x: 0, y: -0.00029969215, z: 0.00054070354}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 25
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.912517}
+      normal: {x: 0, y: 0.00040626526, z: -0.0015622973}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 26
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.912517}
+      normal: {x: 0, y: 0.00040626526, z: -0.0015623271}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 27
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.0020023584, z: 0.058205396}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 28
+    - vertex: {x: 0, y: 1.1920929E-07, z: 1.9125168}
+      normal: {x: 0, y: -0.0020023584, z: 0.058205344}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 29
+    - vertex: {x: 0, y: 5.9604645E-08, z: 1.9125168}
+      normal: {x: 0, y: 0, z: 1.9790605E-08}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 30
+    - vertex: {x: 0, y: 5.9604645E-08, z: 1.9125168}
+      normal: {x: 0, y: 0, z: 2.0023435E-08}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 31
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -1.0728836E-06, z: 0.0008607779}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 0
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: 0, z: -1.5948899E-08}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 1
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: 0.0020023584, z: 0.058205765}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 2
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.0004892349, z: 0.026453286}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 3
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: -0.00040614605, z: -0.0015619099}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 4
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.024421453, z: -0.12647668}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 5
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: 0.00029969215, z: 0.00054070354}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 6
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: -1.2169032E-06, y: 0.37157536, z: 0.37966093}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 7
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: 0.00046294928, z: 0.0004826784}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 8
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.00046294928, z: 0.00048279762}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 9
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: 0.0004657507, z: 0.0002810955}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 10
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.0004657507, z: 0.0002810955}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 11
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: 0.0023266077, z: 0.000662446}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 12
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.0023266077, z: 0.000662446}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 13
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: -0.05227048, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 14
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.05227048, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 15
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: 0.052270308, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 16
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.052270308, z: -0.0023670197}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 17
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: -0.002326548, z: 0.00066256523}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 18
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.002326548, z: 0.00066256523}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 19
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: -0.0004657507, z: 0.0002810359}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 20
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.0004657507, z: 0.0002810359}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 21
+    - vertex: {x: 3.5319793, y: 0, z: 0}
+      normal: {x: 0, y: -0.00046288967, z: 0.0004826784}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 22
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.00046283007, z: 0.0004826784}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 23
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: -0.00029957294, z: 0.0005404651}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 24
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.00029969215, z: 0.0005404949}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 25
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: 0.00040626526, z: -0.0015618205}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 26
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: 0.00040614605, z: -0.0015618205}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 27
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: -0.0020023584, z: 0.058205396}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 28
+    - vertex: {x: 0, y: 0, z: 0}
+      normal: {x: 0, y: -0.0020023584, z: 0.05820534}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 29
+    - vertex: {x: 3.5319796, y: 0, z: 0}
+      normal: {x: 0, y: 0, z: 1.9790605E-08}
+      tangent: {x: 0, y: 0, z: 0}
+      index: 30
+    shapes:
+    - firstVertex: 0
+      vertexCount: 32
+      hasNormals: 1
+      hasTangents: 0
+    - firstVertex: 32
+      vertexCount: 31
+      hasNormals: 1
+      hasTangents: 0
+    channels:
+    - name: Slider_Down
+      nameHash: 1573847042
+      frameIndex: 0
+      frameCount: 1
+    - name: Side_Slider
+      nameHash: 2459530952
+      frameIndex: 1
+      frameCount: 1
+    fullWeights:
+    - 100
+    - 100
+  m_BindPose: []
+  m_BoneNameHashes:
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data:
+  m_MeshCompression: 0
+  m_IsReadable: 0
+  m_KeepVertices: 1
+  m_KeepIndices: 0
+  m_IndexFormat: 0
+  m_IndexBuffer: 000001000200000002000300030002000400030004000500050004000600050006000700070006000800070008000900090008000a0009000a000b000b000a000c000b000c000d000d000c000e000d000e000f000f000e0010000f0010001100110010001200110012001300130012001400130014001500150014001600150016001700170016001800170018001900190018001a0019001a001b001b001a001c001b001c001d001d001c001e001d001e001f00
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 32
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 1
+      offset: 0
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 1536
+    _typelessdata: db425abc0582033f905fb43f00000000faff7f3fe6a6613a0000803f0000000000000000000080bfb41bb9bb0582033f905fb43f00000000e8ff7f3fe4a6e13a0000803f0000000000000000000080bfaf11b9bb5617043f969baf3d00000000de7b7f3f36fc81bd0000803f0000000000000000000080bfd83d5abc5617043f969baf3d0000000008df7f3f85e901bd0000803f0000000000000000000080bf2f11b9bbd29f013fe05b393c000000002fd0773f447280be0000803f0000000000000000000080bf973d5abcd29f013fe05b393c000000000df67d3fdcfa00be0000803f0000000000000000000080bf2f11b9bb82aef43e23c676bd00000000b0de5f3f3857f8be0000803f0000000000000000000080bf973d5abc82aef43e23c676bd7a54a335c4d2003fa2395dbf0000803f0000000000000000000080bf2d10b9bb2a89dd3e4b33f9bd0000000031b6383f064031bf0000803f0000000000000000000080bf143d5abc2a89dd3e4b33f9bd0000000032b6383f054031bf0000803f0000000000000000000080bf2d10b9bb4e5fbf3e0df32cbe000000001632043f043a5bbf0000803f0000000000000000000080bf143d5abc4e5fbf3e0df32cbe000000001632043f043a5bbf0000803f0000000000000000000080bf2b10b9bbb7339c3eab7d4bbe00000000b7a38b3e804b76bf0000803f0000000000000000000080bf143d5abcb7339c3eab7d4bbe00000000b7a38b3e804b76bf0000803f0000000000000000000080bf2b10b9bb27306f3e300556be000000001323923df1587fbf0000803f0000000000000000000080bf143d5abc27306f3e300556be000000001323923df1587fbf0000803f0000000000000000000080bf2b10b9bb1e306fbe2c0556be000000001d2392bdf1587fbf0000803f0000000000000000000080bf143d5abc1e306fbe2c0556be000000001d2392bdf1587fbf0000803f0000000000000000000080bf2b10b9bbb4339cbea67d4bbe00000000b3a38bbe824b76bf0000803f0000000000000000000080bf143d5abcb4339cbea67d4bbe00000000b3a38bbe824b76bf0000803f0000000000000000000080bf2d10b9bb4b5fbfbe09f32cbe00000000153204bf053a5bbf0000803f0000000000000000000080bf143d5abc4b5fbfbe09f32cbe00000000153204bf053a5bbf0000803f0000000000000000000080bf2d10b9bb2789ddbe4333f9bd0000000029b638bf0e4031bf0000803f0000000000000000000080bf143d5abc2789ddbe4333f9bd000000002bb638bf0b4031bf0000803f0000000000000000000080bf2f11b9bb86aef4be07c676bd00000000b0de5fbf3b57f8be0000803f0000000000000000000080bf973d5abc86aef4be07c676bd00000000b0de5fbf3857f8be0000803f0000000000000000000080bf2f11b9bbd29f01bf4f5c393c0000000033d077bf287280be0000803f0000000000000000000080bf973d5abcd29f01bf4f5c393c0000000033d077bf257280be0000803f0000000000000000000080bfaf11b9bb551704bfa09baf3d00000000de7b7fbf13fc81bd0000803f0000000000000000000080bfd83d5abc551704bfa09baf3d00000000de7b7fbf0afc81bd0000803f0000000000000000000080bfb41bb9bb078203bf8e5fb43f00000000e8ff7fbfdfa0e13a0000803f0000000000000000000080bfdb425abc078203bf8e5fb43f00000000e8ff7fbfdfa0e13a0000803f0000000000000000000080bf00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data:
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data:
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data:
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data:
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data:
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data:
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data:
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data:
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data:
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data:
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 1.756505, y: 8.940697E-08, z: 1.5563394}
+    m_Extent: {x: 1.7698267, y: 0.5159811, z: 1.7653435}
+  m_MeshUsageFlags: 1
+  m_BakedConvexCollisionMesh:
+  m_BakedTriangleCollisionMesh:
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: -1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path:
