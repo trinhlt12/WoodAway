@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b85e9376803bf2488fa7f25ea9c5e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridGenerator: {fileID: 0}
   gridRoot: {fileID: 248933184}
 --- !u!222 &248933186
 CanvasRenderer:
@@ -2194,7 +2195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640401345}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.404616, y: -3.9201918, z: -2.6264699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2263,6 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b85e9376803bf2488fa7f25ea9c5e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridGenerator: {fileID: 1062448947}
   gridRoot: {fileID: 640401346}
 --- !u!1 &656047872
 GameObject:
@@ -8306,6 +8308,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908620184633012798, guid: 0fb98d5ba1fa62346a71ed3f1751343a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908620184633012798, guid: 0fb98d5ba1fa62346a71ed3f1751343a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908620184633012798, guid: 0fb98d5ba1fa62346a71ed3f1751343a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5270200839960840231, guid: 0fb98d5ba1fa62346a71ed3f1751343a,
         type: 3}
