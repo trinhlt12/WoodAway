@@ -14,12 +14,13 @@ public class GridManager : MonoBehaviour
 {
     #region FIELD_DECLARATIONS
 
-    [SerializeField] private        Transform gridRoot;
-    [SerializeField] private static int       columns = 4;
-    [SerializeField] private static int       rows    = 5;
+    [SerializeField] private GridGenerator gridGenerator;
+    [SerializeField] private Transform     gridRoot;
+    private                  int           columns => gridGenerator.columns;
+    private                  int           rows    => gridGenerator.rows;
 
-    public static    GridManager Instance { get; private set; }
-    private readonly GridCell[,] _gridCells = new GridCell[rows, columns];
+    public static GridManager Instance { get; private set; }
+    private       GridCell[,] _gridCells;
 
     #endregion
 
@@ -77,6 +78,7 @@ public class GridManager : MonoBehaviour
 
     private void OnInit()
     {
+        this._gridCells = new GridCell[this.rows, this.columns];
         InitGrid();
     }
 
@@ -159,7 +161,7 @@ public class GridManager : MonoBehaviour
         foreach (var offset in offsets)
         {
             var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
-            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) continue;
+            if (coord.x < 0 || coord.x >= columns || coord.y < 0 || coord.y >= rows) continue;
             _gridCells[coord.y, coord.x].isOccupied = true;
         }
     }
@@ -170,7 +172,7 @@ public class GridManager : MonoBehaviour
         foreach (var offset in offsets)
         {
             var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
-            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) continue;
+            if (coord.x < 0 || coord.x >= columns || coord.y < 0 || coord.y >= rows) continue;
             _gridCells[coord.y, coord.x].isOccupied = false;
         }
     }
@@ -196,8 +198,8 @@ public class GridManager : MonoBehaviour
     {
         var openList   = new List<Node>();
         var closedSet  = new HashSet<Vector2Int>();
-        var gridWidth  = 4; // columns
-        var gridHeight = 5; // rows
+        var gridWidth  = columns; // columns
+        var gridHeight = rows;    // rows
 
         Node startNode = new Node(start, null, 0, Heuristic(start, end));
         openList.Add(startNode);
@@ -292,7 +294,7 @@ public class GridManager : MonoBehaviour
         {
             var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
 
-            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) return false;
+            if (coord.x < 0 || coord.x >= columns || coord.y < 0 || coord.y >= rows) return false;
 
             if (_gridCells[coord.y, coord.x].isOccupied) return false;
         }
@@ -305,9 +307,9 @@ public class GridManager : MonoBehaviour
         float      minDistance  = float.MaxValue;
         Vector2Int closestCoord = new Vector2Int(-1, -1);
 
-        for (int row = 0; row < 5; row++)
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < 4; col++)
+            for (int col = 0; col < columns; col++)
             {
                 var   cell = _gridCells[row, col];
                 float dist = Vector3.Distance(worldPos, cell.cellTransform.position);
@@ -324,7 +326,7 @@ public class GridManager : MonoBehaviour
 
     public Vector3 GetWorldFromGridCoord(Vector2Int coord)
     {
-        if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) return Vector3.zero;
+        if (coord.x < 0 || coord.x >= columns || coord.y < 0 || coord.y >= rows) return Vector3.zero;
         return _gridCells[coord.y, coord.x].cellTransform.position;
     }
 }

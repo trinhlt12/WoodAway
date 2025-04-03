@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,8 +8,8 @@ public class GridGenerator : MonoBehaviour
 {
     [Header("Grid Configuration")] [SerializeField] private Transform  gridRoot;
     [SerializeField]                                private GameObject cellPrefab;
-    [SerializeField]                                private int        columns  = 4;
-    [SerializeField]                                private int        rows     = 5;
+    public int        columns  = 5;
+    public int        rows     = 10;
     [SerializeField]                                private float      cellSize = 1f;
     [SerializeField]                                private float      spacing  = 0.1f;
 
