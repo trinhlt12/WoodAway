@@ -14,9 +14,9 @@ public class GridManager : MonoBehaviour
 {
     #region FIELD_DECLARATIONS
 
-    [SerializeField] private       Transform gridRoot;
-    [SerializeField] private const int       columns = 4;
-    [SerializeField] private const int       rows    = 5;
+    [SerializeField] private        Transform gridRoot;
+    [SerializeField] private static int       columns = 4;
+    [SerializeField] private static int       rows    = 5;
 
     public static    GridManager Instance { get; private set; }
     private readonly GridCell[,] _gridCells = new GridCell[rows, columns];
@@ -164,7 +164,6 @@ public class GridManager : MonoBehaviour
         }
     }
 
-
     public void UnmarkCellsOccupied(Vector3 pivotWorldPos, Vector2Int[] offsets)
     {
         var pivotCoord = GetGridCoordFromWorld(pivotWorldPos);
@@ -175,7 +174,6 @@ public class GridManager : MonoBehaviour
             _gridCells[coord.y, coord.x].isOccupied = false;
         }
     }
-
 
     private void Start()
     {
