@@ -31,7 +31,7 @@ namespace _GAME.Scripts
                 speed * Time.deltaTime
             );
 
-            if (!(Vector3.Distance(this.transform.position, this._targetPosition.Value) < 0.005f/2)) return;
+            if (!(Vector3.Distance(this.transform.position, this._targetPosition.Value) < 0.01)) return;
             this.transform.position = this._targetPosition.Value;
             this._targetPosition    = null;
         }
