@@ -149,59 +149,54 @@ namespace _GAME.Scripts
         {
             this._block.Unhighlight();
 
+            if (_targetPosition.HasValue)
+            {
+                this.transform.position = _targetPosition.Value;
+                _targetPosition         = null;
+            }
+
             var closestCell = GridManager.Instance.GetClosestCell(this.transform.position);
             if (closestCell != null)
             {
                 var snapPosition = closestCell.position;
-                snapPosition.y          = this.transform.position.y;
+                snapPosition.y = this.transform.position.y;
                 if (CanPlaceAtPosition(snapPosition))
                 {
                     this.transform.position = snapPosition;
                     GridManager.Instance.MarkCellsOccupied(snapPosition, this._block.CellOffsets);
+                    _lastValidPosition = snapPosition;
                 }
                 else
                 {
-                    //get closest cell to the invalid position:
                     var lastValidCell = GridManager.Instance.GetClosestCell(_lastValidPosition);
                     this.transform.position = lastValidCell.position;
-                    GridManager.Instance.MarkCellsOccupied(_originalPosition, this._block.CellOffsets);
+                    GridManager.Instance.MarkCellsOccupied(this.transform.position, this._block.CellOffsets);
+                    _lastValidPosition = this.transform.position;
                 }
-
             }
         }
 
+
         private bool CanPlaceAtPosition(Vector3 position)
         {
+            var pivotCoord   = GridManager.Instance.GetGridCoordFromWorld(position);
             var blockOffsets = this._block.CellOffsets;
 
             foreach (var offset in blockOffsets)
             {
-                var cellWorldPos = position + new Vector3(offset.x, 0, offset.y);
-                var closestCell  = GridManager.Instance.GetClosestCell(cellWorldPos);
+                var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
 
-                if (closestCell != null)
-                {
-                    var foundCell = false;
-                    for (var row = 0; row < 5; row++)
-                    {
-                        for (var col = 0; col < 4; col++)
-                        {
-                            var cell = GridManager.Instance.GetCell(row, col);
-                            if (cell.cellTransform != closestCell) continue;
-                            if (cell.isOccupied)
-                            {
-                                return false;
-                            }
-                            foundCell = true;
-                            break;
-                        }
-                        if (foundCell) break;
-                    }
-                }
+                if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5)
+                    return false;
+
+                var cell = GridManager.Instance.GetCell(coord.y, coord.x);
+                if (cell.isOccupied)
+                    return false;
             }
 
             return true;
         }
+
 
     }
 }

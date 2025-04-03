@@ -155,45 +155,27 @@ public class GridManager : MonoBehaviour
 
     public void MarkCellsOccupied(Vector3 pivotWorldPos, Vector2Int[] offsets)
     {
+        var pivotCoord = GetGridCoordFromWorld(pivotWorldPos);
         foreach (var offset in offsets)
         {
-            var cellPos = pivotWorldPos + new Vector3(offset.x, 0, offset.y);
-
-            var closest = GetClosestCell(cellPos);
-            if (closest != null)
-            {
-                foreach (var cell in _gridCells)
-                {
-                    if (cell.cellTransform == closest)
-                    {
-                        cell.isOccupied = true;
-                        break;
-                    }
-                }
-            }
+            var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
+            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) continue;
+            _gridCells[coord.y, coord.x].isOccupied = true;
         }
     }
+
 
     public void UnmarkCellsOccupied(Vector3 pivotWorldPos, Vector2Int[] offsets)
     {
+        var pivotCoord = GetGridCoordFromWorld(pivotWorldPos);
         foreach (var offset in offsets)
         {
-            var cellPos = pivotWorldPos + new Vector3(offset.x, 0, offset.y);
-
-            var closest = GetClosestCell(cellPos);
-            if (closest != null)
-            {
-                foreach (var cell in _gridCells)
-                {
-                    if (cell.cellTransform == closest)
-                    {
-                        cell.isOccupied = false;
-                        break;
-                    }
-                }
-            }
+            var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
+            if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) continue;
+            _gridCells[coord.y, coord.x].isOccupied = false;
         }
     }
+
 
     private void Start()
     {
