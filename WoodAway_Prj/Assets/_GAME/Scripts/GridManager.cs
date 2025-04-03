@@ -310,7 +310,7 @@ public class GridManager : MonoBehaviour
     {
         foreach (var offset in cellOffsets)
         {
-            var coord = pivotCoord + offset;
+            var coord = pivotCoord + new Vector2Int(offset.x, -offset.y);
 
             if (coord.x < 0 || coord.x >= 4 || coord.y < 0 || coord.y >= 5) return false;
 
